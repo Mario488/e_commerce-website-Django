@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'cart.css' %}">
+{% endblock %}
+
+{% block bodycontent %}
+<h1>My Cart 🛒</h1>
+<main>
+    <section class="cart-items">
+        <h2 id="state">Cart Items</h2>
+        <ul>
+            {% for phone, product in phones %}
+            <li>
+                <div class="cart-item">
+                    <img src="static/{{phone.Series}}.jpg" width="165" height="auto">
+                    <div class="item-details">
+                        <h3 id="phone_Series">{{phone.Series}}</h3>
+                        <p id="price">Price: ${{phone.Cost}}</p>
+                        <p style="margin-top: 20px; user-select: none;" id="quantity">
+                            <span class="subtract">-</span>
+                            <span class="q" id="product_Quantity">{{product.Quantity}}</span>
+                            <input type="hidden" value="{{phone.Quantity}}" id="max_count">
+                            <span class="add">+</span>
+                        </p>
+                        <form method="POST">
+                            {% csrf_token%}
+                            <input type="hidden" value="delete" name="delete">
+                            <input type="hidden" value="{{phone.Series}}" name="phone">
+                            <button>Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            {% endfor%}
+        </ul>
+    </section>
+    <section class="cart-summary">
+        <h2>Cart Summary</h2>
+        <table>
+            <tr>
+                <td>Subtotal:</td>
+                <td id="subtotal">0.00</td>
+            </tr>
+            <tr>
+                <td>Delivery Cost:</td>
+                <td id="del-cost">10</td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td id="total">0.00</td>
+            </tr>
+        </table>
+        <form method='POST' action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <input type="hidden" id="products" value="" name="purchasedPR">
+            <input type="hidden" id="quantities" value="" name="PRquantity">
+            <input type="hidden" id="product_price" value="" name="PRprice">
+            <button type="submit" onclick="GetData()" id="checkout_btn">Checkout</button>
+        </form>
+    </section>
+</main>
+<script src="{% static 'cart.js' %}"></script>
+{% endblock %}

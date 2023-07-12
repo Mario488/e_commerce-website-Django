@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% block styles %}
+   
+    {% endblock %}
+    <style>
+        .nav2 {
+        position: absolute;
+        z-index:2000;
+        top: 0;
+        left: 0;
+    }
+    .nav2 .container10 {
+        padding: 10px;
+        background-color: #f1f1f1;
+    }
+    .nav2 .container10 a{
+        font-size: 2rem;
+    }
+    .nav2 #links {
+        display: none;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        background-color: #f1f1f1;
+    }
+    .nav2 #links li {
+        margin-bottom: 10px;
+    }
+    .nav2 #links li a {
+        display: block;
+        padding: 5px;
+        text-decoration: none;
+        color: #333;
+        width: 100%; /* Add this line to make the list items take up the full width */
+    }
+    .nav2 #links li a:hover {
+        background-color: #ddd;
+    }
+        @media screen and (max-width: 650px){
+            .nav2{
+                display: block;
+            }
+            .nav1{
+                display: none;  
+            }
+        }
+        @media screen and (min-width: 651px){
+            .nav2{
+                display: none;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav1">
+        <ul>
+            <li><a href="{% url 'home'%}" >Home</a></li>
+            <li>
+                <a href="#" >Products</a>
+                <ul class="dropdown">
+                    <li><a href="">Computers</a></li>
+                    <li><a href="{% url 'smartphones'%}">Smartphones</a></li>
+                    <li><a href="">Entertainment</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'contacts' %}" >Contact Us</a></li>
+            {% if user.is_authenticated == True %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'favorites' %}">Favorites</a></li>
+                <li><a href="{% url 'cart' %}">🛒Cart</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <nav class="nav2">
+        <div>
+            <div class="container10">
+                <a onclick="button()" id="btn">☰</a>
+            </div>
+            <ul style="display: none; list-style-type:none;" id="links">
+                <li><a href="{% url 'home'%}" >Home</a></li>
+                <li>
+                    <a href="#" >Products</a>
+                    <ul class="dropdown">
+                        <li><a href="">Computers</a></li>
+                        <li><a href="{% url 'smartphones'%}">Smartphones</a></li>
+                        <li><a href="">Entertainment</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'contacts' %}" >Contact Us</a></li>
+                {% if user.is_authenticated == True %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a href="{% url 'favorites' %}">Favorites</a></li>
+                    <li><a href="{% url 'cart' %}">🛒Cart</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'sign_up' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    {% block bodycontent %}
+    {% endblock %}
+    <br>
+    <footer class="footer">
+        <p>&copy; 2023 Electronify. All rights reserved.</p>
+    </footer>
+    <script>
+        let links = document.getElementById('links');
+        let btn = document.getElementById('btn');
+        function button() {
+            if (links.style.display == 'block') {
+                links.style.display = 'none';
+            }
+            else {
+                links.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

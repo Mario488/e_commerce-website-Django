@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+form label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form textarea {
+    height: 150px;
+}
+
+form button[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: #666;
+}

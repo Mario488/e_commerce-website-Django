@@ -1,0 +1,27 @@
+from django.db import models
+
+
+class Smartphones(models.Model):
+    Series = models.CharField(max_length=30)
+    Color = models.CharField(max_length=15)
+    Processor = models.CharField(max_length=30)
+    Memory = models.IntegerField()
+    Ram = models.IntegerField()
+    Screen = models.CharField(max_length=120)
+    Camera = models.CharField(max_length=40)
+    Battery = models.CharField(max_length=15)
+    GPU = models.CharField(max_length=20, default="")
+    Connectivity = models.CharField(max_length=60, default="")
+    Networks = models.CharField(max_length=20, default="")
+    Interfaces = models.TextField(default="")
+    Options = models.TextField(default="")
+    Sizes = models.CharField(max_length=30, default="")
+    OS = models.CharField(max_length=15, default="")
+    Weight = models.IntegerField(default=0)
+    Warranty = models.IntegerField(default=0)
+    MicroSD = models.BooleanField(default=False)
+    TwoSIM = models.BooleanField(default=False)
+    FiveG = models.BooleanField(default=False)
+    Wireless_charging = models.BooleanField(default=False)
+    Quantity = models.IntegerField(default=0)
+    Cost = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)

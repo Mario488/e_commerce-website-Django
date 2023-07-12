@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'smartphones.css' %}">
+{% endblock %}
+{% block bodycontent%}
+{% for message in messages %}
+<div class="message">
+    <p>{{message}}</p>
+</div>
+{% endfor %}
+<div class="container3">
+</div>
+<form method="post">
+    {% csrf_token %}
+    <div class="container2">
+        <input type="text" name="search_input" id="search_input_field" placeholder="Search Smartphone" autocomplete="off">
+        <button id="search_button"><img src="{% static 'search_icon'%}.jpg" alt="" width="40px" height="auto"></button>
+    </div>
+</form>
+<input type="hidden" id="avail" value="No phones found" disabled>
+<div class="container">
+
+    {% for phone in smartphones%}
+    <section class="item">
+
+        <img src="static/{{phone.Series}}.jpg" width="280" height="auto" onmouseover="hover(this)"
+            onmouseout="unHover(this)">
+        {% if user.is_authenticated %}
+        {% if phone.Series in favorites %}
+        <p class="favorite" onclick="favorite(this)" data-item-id="{{ phone.Series }}">❤️</p>
+        {% else %}
+        <p class="favorite" onclick="favorite(this)" data-item-id="{{ phone.Series }}">🤍</p>
+        {% endif %}
+        {% endif %}
+        <form method="GET" class="product">
+            {% csrf_token %}
+            <input type="hidden" value="{{phone.Series}}" name="product">
+            <button class="product">
+                <h3>{{phone.Series}}</h3>
+            </button>
+        </form>
+        <p>✔️{{phone.Screen}}</p>
+        <p>✔️{{phone.Battery}}</p>
+        <p>✔️{{phone.Processor}}</p>
+        <p>✔️{{phone.Camera}}</p>
+        {% if phone.Quantity > 0 %}
+        <p class="inStock">In Stock</p>
+        {% else %}
+        <p class="outOfStock">Out of stock</p>
+        {% endif %}
+
+        <h3 class="cost">${{phone.Cost}}</h3>
+    </section>
+    {% endfor %}
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $('.favorite').click(function (e) {
+            e.preventDefault();
+            var itemId = $(this).data('item-id');
+            var added = 'Item Added To Favorites'
+
+            var removed = 'Item Removed From Favorites';
+            var isWhiteHeart = $(this).text().trim() === '❤️';
+            if (isWhiteHeart) {
+                $.ajax({
+                    url: '/favorite/',
+                    method: 'POST',
+                    data: {
+                        'itemId': itemId,
+                        'added': added,
+                        'removed': 'False'
+                    },
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    success: function (data) {
+                        if (data.added) {
+                            var $emojiDiv = $("<div>").addClass("emoji");
+                            var $messageFavDiv = $("<div>").addClass("message_fav");
+                            var $Div = $("<div>");
+                            $Div.css('border-bottom', '2px solid #F3E8FF')
+                            $emojiDiv.text('❤️')
+                            $messageFavDiv.html('The Product was<br>Added to Favorites')
+                            $Div.append($emojiDiv, $messageFavDiv);
+                            $(".container3").append($Div);
+                            $('.container3').css('display', 'block')
+                            setTimeout(function () {
+                                $emojiDiv.remove();
+                                $messageFavDiv.remove();
+                                $('.container3').css('display', 'none')
+                            }, 3000);
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while adding the item to favorites.');
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: '/favorite/',
+                    method: 'POST',
+                    data: {
+                        'itemId': itemId,
+                        'added': added,
+                        'removed': removed
+                    },
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    success: function (data) {
+                        if (data.removed) {
+                            var $emojiDiv = $("<div>").addClass("emoji");
+                            var $messageFavDiv = $("<div>").addClass("message_fav");
+                            var $Div = $("<div>");
+                            $Div.css('border-bottom', '2px solid #F3E8FF')
+                            $emojiDiv.text('🤍')
+                            $messageFavDiv.html('The Product was <br>Removed from Favorites')
+                            $Div.append($emojiDiv, $messageFavDiv);
+                            $(".container3").append($Div);
+                            $('.container3').css('display', 'block')
+                            setTimeout(function () {
+                                $emojiDiv.remove();
+                                $messageFavDiv.remove();
+                                $('.container3').css('display', 'none')
+                            }, 3000);
+                        }
+                    },
+                    error: function () {
+                        alert('An error occured while Deleting item from favorites');
+                    }
+                });
+            }
+        });
+    });
+    // section
+    var phones = document.querySelectorAll('section').length;
+    var avail = document.getElementById('avail');
+    if (phones == 0) {
+        avail.setAttribute('type', 'text');
+    }
+    function hover(img) {
+        var imageName = img.getAttribute('src').split('/').pop().split('.')[0];
+        img.setAttribute('src', 'static/' + imageName + '_back.jpg');
+    }
+
+    function unHover(img) {
+        var imageName = img.getAttribute('src').split('/').pop().split('.')[0];
+        var newSrc = imageName.replace('_back', '');
+        img.setAttribute('src', 'static/' + newSrc + '.jpg');
+    }
+    function favorite(p) {
+        if (p.textContent == '🤍') {
+            p.textContent = '❤️';
+        }
+        else {
+            p.textContent = '🤍';
+        }
+    }
+
+</script>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'favorites.css' %}">
+{% endblock %}
+{% block bodycontent%}
+{% if favorites %}
+<ul>
+    {% for favorite in favorites %}
+    <li>{{favorite.Product_name}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="message_info">
+</div>
+<h1>Favorite Products ❤️</h1>
+<main>
+    <section class="cart-items">
+        <h2 id="state">Favorite Items</h2>
+        <ul>
+            {% for phone in smartphones %}
+            <li>
+                <div class="cart-item">
+                    <img src="/static/{{phone.Series}}.jpg" width="165" height="auto">
+                    <span>❤️</span>
+                    <div class="item-details">
+                        <h3>{{phone.Series}}</h3>
+                        <p id="price">Price: {{phone.Cost}} лв.</p>
+                            <button class="Add" data-item-id="{{phone.Series}}">Add To Cart</button>
+                            <button class="Remove" data-item-id="{{phone.Series}}">Remove</button>
+                    </div>
+                </div>
+            </li>
+            {% endfor%}
+        </ul>
+    </section>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+        let item = document.querySelectorAll('.cart-item');
+        let state = document.getElementById('state');
+        if (item.length == 0) {
+            state.textContent = 'No products were chosen as favorite :)';
+            state.classList.add('state');
+        }
+        $(function () {
+            $('.Add').click(function (e) {
+                e.preventDefault();
+                var phone = $(this).data('item-id');
+                var added = 'Item Added To Cart'
+
+                var removed = 'Item Already Added';
+                var outOfStock = 'Product out of stock';
+                $.ajax({
+                    url: '/favorite/',
+                    method: 'POST',
+                    data: {
+                        'phone': phone,
+                        'added': added,
+                        'removed': removed,
+                        'outOfStock': outOfStock
+                    },
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    success: function (data) {
+                        if (data.added) {
+                            var $newDiv = $("<div></div>");
+                            $newDiv.addClass("message");
+                            $newDiv.text('Item Added To Cart')
+
+                            $(".message_info").append($newDiv);
+
+                            setTimeout(function () {
+                                $newDiv.remove();
+                            }, 3000);
+                        }
+                        if (data.removed) {
+                            var $newDiv = $("<div></div>");
+                            $newDiv.addClass("message");
+                            $newDiv.text('Item Already Added')
+
+                            $(".message_info").append($newDiv);
+                            setTimeout(function () {
+                                $newDiv.remove();
+                            }, 3000);
+                        }
+                        if (data.outOfStock) {
+                            var $newDiv = $("<div></div>");
+                            $newDiv.addClass("message");
+                            $newDiv.text('Product out of stock')
+
+                            $(".message_info").append($newDiv);
+                            setTimeout(function () {
+                                $newDiv.remove();
+                            }, 3000);
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while adding the item to cart.');
+                    }
+                });
+
+            });
+        });
+        $(function () {
+            $('.Remove').click(function (e) {
+                e.preventDefault();
+                var phone = $(this).data('item-id');
+                var $clickedElement = $(this); // store reference to the clicked element
+
+                var removed = 'Item Removed';
+
+                $.ajax({
+                    url: '/favorite/',
+                    method: 'POST',
+                    data: {
+                        'phone': phone,
+                        'removed': removed
+                    },
+                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                    success: function (data) {
+                        if (data.removed) {
+                            var $newDiv = $("<div></div>");
+                            $newDiv.addClass("message");
+                            $newDiv.text('Item Removed')
+
+                            $(".message_info").append($newDiv);
+
+                            $clickedElement.parent().parent().css('display', 'none');
+
+                            setTimeout(function () {
+                                $newDiv.remove();
+                            }, 3000);
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while removing the item from cart.');
+                    }
+                });
+
+            });
+        });
+</script>
+{% endblock %}

@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.header {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-top: 15px;
+}
+
+.header h1 {
+    color: rgb(46, 165, 205);
+    letter-spacing: 5px;
+    transition: letter-spacing .5s;
+    display: inline;
+}
+
+.header h1:hover {
+    letter-spacing: 12px;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    border-radius: 10px;
+    background-color: azure;
+    cursor: cell;
+}
+
+.header p {
+    font-style: italic;
+    margin-top: 10px;
+    transition: letter-spacing 0.5s;
+}
+
+.header p:hover {
+    letter-spacing: 2.5px;
+}
+
+.header button {
+    background-color: black;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.5s;
+    margin-top: 15px;
+}
+
+.header button:hover {
+    transform: scale(1.15) translateY(-2.5px);
+    color: #fff;
+    background-color: rgb(214, 12, 12);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    margin-bottom: 250px;
+}
+
+.item {
+    margin: 15px;
+    width: 350px;
+    overflow: hidden;
+    padding: 10px;
+    border-radius: 8px;
+    border: 3px solid #b7aaaa;
+    background-color: #fff;
+    transition: border-color, transform 0.5s;
+    position: relative;
+}
+
+.item:hover {
+    border-color: #333;
+    transform: scale(1.02);
+}
+
+.item p {
+    text-align: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.item h3 {
+    color: rgb(37, 187, 192);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: normal;
+    letter-spacing: 2px;
+    font-size: 1.3rem;
+}
+
+.item a {
+    text-decoration: none;
+}
+
+.item h3:hover:not(.cost) {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.item * {
+    margin-top: 8px;
+}
+
+.cost:not(a h3) {
+    margin-top: 25px;
+    color: crimson;
+    letter-spacing: 3px;
+    text-align: left;
+}
+
+.BS {
+    float: left;
+    color: #fff;
+    background-color: rgb(14, 136, 212);
+    padding: 4px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: absolute;
+    top: 10px;
+}
+
+.inStock {
+    color: rgb(19, 153, 19);
+    font-weight: bold;
+    font-size: 1.4rem;
+    cursor: grab;
+
+}
+
+.outOfStock {
+    color: crimson;
+    font-weight: bold;
+    font-size: 1.4rem;
+    cursor: not-allowed;
+}
+
+#shop {
+    text-decoration: none;
+    color: #fff;
+}
+
+.success {
+    background-color: #ffe6e6;
+    border: 2px solid #ff8080;
+    border-radius: 5px;
+    color: #ff4040;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+
+}
+
+.success:hover {
+    background-color: #ff8080;
+    color: #ffe6e6;
+    cursor: not-allowed;
+}

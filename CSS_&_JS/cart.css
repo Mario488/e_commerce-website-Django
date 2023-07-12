@@ -1,0 +1,138 @@
+body {
+    font-family: 'Arial';
+    margin: 0;
+    padding: 0;
+    overflow-X: hidden;
+
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 1.5rem;
+}
+
+.cart-items {
+    flex-basis: 80%;
+    position: relative;
+    margin-bottom: 150px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 25px;
+}
+
+.cart-item img {
+    margin-right: 20px;
+}
+
+.item-details button {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    color: #333;
+    padding: 5px 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    transition: transform .2s ease-in-out;
+}
+
+.footer p {
+    font-size: 1.5rem;
+}
+
+.item-details button:hover {
+    transform: translateY(-1.5px);
+    background-color: firebrick;
+    color: #fff;
+}
+
+.cart-summary {
+    flex-basis: 35%;
+    background-color: #eee;
+    padding: 20px;
+    position: absolute;
+    right: 120px;
+
+}
+
+
+
+
+ul {
+    list-style-type: none;
+}
+
+.cart-summary h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+table {
+    width: 100%;
+}
+
+table td {
+    padding: 10px 0;
+}
+
+table tr:last-child td {
+    font-weight: bold;
+}
+
+.cart-summary button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+section ul li {
+    background-color: #fff;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.cart-summary button:hover {
+    outline: 2px solid firebrick;
+    background-color: #fff;
+    color: black;
+}
+
+p span:not(.q) {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    line-height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+}
+
+p span:hover:not(.q) {
+    background-color: rgba(48, 141, 234, 0.975);
+}

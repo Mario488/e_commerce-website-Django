@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+form {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: auto;
+    margin-top: 35px;
+    padding: 20px;
+    width: 400px;
+}
+
+form :not(form) {
+    font-size: 1.4rem;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: rgb(185, 28, 28);
+}
+
+.container {
+    text-align: center;
+}
+
+p a {
+    text-decoration: underline;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+.message p {
+    background-color: #ffe6e6;
+    border: 2px solid #ff8080;
+    border-radius: 5px;
+    color: #ff4040;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.message p:hover {
+    background-color: #ff8080;
+    color: #ffe6e6;
+    cursor: not-allowed;
+}

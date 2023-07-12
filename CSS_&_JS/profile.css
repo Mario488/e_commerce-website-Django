@@ -1,0 +1,308 @@
+body {
+    font-family: 'Arial';
+    overflow-X: hidden;
+}
+
+input {
+    border: 1px solid #ccc;
+    padding: 8px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 20px #3498db;
+}
+
+.message p {
+    background-color: #ffe6e6;
+    border: 2px solid #ff8080;
+    border-radius: 5px;
+    color: #ff4040;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.message p:hover {
+    background-color: #ff8080;
+    color: #ffe6e6;
+    cursor: not-allowed;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+.main_container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+
+.pfp {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.pfp img {
+    width: 220px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.upload {
+    position: absolute;
+    bottom: -10px;
+    right: 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    padding: 0.2em 0.4em;
+    font-size: 1.5em;
+    line-height: 1;
+    color: #333;
+    border: none;
+}
+
+p {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+}
+
+span {
+    font-weight: bold;
+}
+
+
+.sub_container {
+    max-width: 800px;
+    margin: 2em auto 150px;
+    text-align: center;
+
+}
+
+.my_activity {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1em;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+.orders,
+.favorites,
+.reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em;
+}
+
+.emoji {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.btn {
+    margin-top: 1em;
+    background-color: #4169e1;
+    border-radius: 5px;
+    padding: 0.5em;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+.btn:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+.upload:hover {
+    color: #fff;
+    background-color: #4169e1;
+    cursor: pointer;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    max-width: 600px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: #555353;
+    color: #fff;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 500px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: crimson;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    transition: transform .5s;
+}
+
+button:hover {
+    background-color: #fff;
+    color: crimson;
+    transform: translateY(-2px);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px;
+    width: 540px;
+    border-radius: 5px 5px 0 0;
+}
+
+.form-header h1 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.form-header button {
+    font-size: 1.5rem;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+.form-header h1 {
+    font-size: 1.8rem;
+}
+
+.close_btn:hover {
+    background-color: #fff;
+}
+
+.reg_orders_display {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    max-width: 500px;
+    transform: scale(1.10);
+    margin: 0 auto;
+    margin-top: 120px;
+}
+
+.reg_orders_display .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reg_orders_display .header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.close_btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close_btn:hover {
+    color: #ff0000;
+}
+
+.reg_orders_display ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.reg_orders_display li {
+    margin: 20px 0;
+}
+
+.reg_orders_display .order_details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reg_orders_display .order_name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.reg_orders_display .order_status {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.order_details div {
+    margin-right: 70px;
+}
+
+.changeDataForm {
+    position: absolute;
+    z-index: 2;
+}
+
+.input-container {
+    position: relative;
+}
+
+.emoji-container {
+    position: absolute;
+    left: 420px;
+    top: 5px;
+    user-select: none;
+}

@@ -1,0 +1,145 @@
+body {
+    font-family: 'Arial';
+    margin: 0;
+    padding: 0;
+    overflow-X: hidden;
+}
+
+.state {
+    font-size: 2.5rem;
+    text-align: center;
+    justify-content: center;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 1.5rem;
+}
+
+.cart-items {
+    flex-basis: 80%;
+    position: relative;
+    margin-bottom: 150px;
+}
+
+span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1.7rem;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
+    cursor: grab;
+    transition: transform 1s ease-in-out;
+}
+
+.footer p {
+    font-size: 1.5rem;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 25px;
+    position: relative;
+}
+
+.cart-item img {
+    margin-right: 20px;
+}
+
+section ul li {
+    background-color: #fff;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 1.5rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.Remove {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    color: #333;
+    padding: 5px 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    transition: transform .2s ease-in-out;
+}
+
+.Remove:hover {
+    transform: translateY(-1.5px);
+    background-color: firebrick;
+    color: #fff;
+}
+
+.Add {
+    background-color: #318CE7;
+    border: 2px solid #ccc;
+    color: #fff;
+    padding: 5px 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    transition: transform .2s ease-in-out;
+}
+
+.Add:hover {
+    transform: translateY(-1.5px);
+    background-color: rgb(17, 108, 17);
+    color: #fff;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+#price {
+    font-size: 1.4rem;
+}
+
+.message {
+    background-color: #ffe6e6;
+    border: 2px solid #ff8080;
+    border-radius: 5px;
+    color: #ff4040;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.message:hover {
+    background-color: #ff8080;
+    color: #ffe6e6;
+    cursor: not-allowed;
+}

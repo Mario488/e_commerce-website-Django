@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles%}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
+
+{% block bodycontent%}
+{% for message in messages %}
+    <div class="message">
+        <p>{{message}}</p>
+    </div>
+{% endfor %}
+
+<div class="main_container">
+    <h1>Account Data</h1>
+    <div class="container">
+        <div class="pfp">
+            <form method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <input type="hidden" value="post1" name="method">
+                <img src="/static/{{username}}.jpg" onerror="this.onerror=null; this.src='/static/dummy-image.jpg';" width="350" height="auto">
+                <br>
+                <input type="file" id="upload_image" name="image">
+            </form>
+
+        </div>
+        <p style="font-size: 1.5rem;">Username: <span id="username" style="float: none;">{{username}}</span></p>
+        <p style="font-size: 1.5rem;">Email: <span id="email" style="float: none;">{{email}}</span></p>
+        <div class="changeDataForm" style="display: none;">
+
+        </div>
+        <button onclick="ChangeData()" class="btn">Manage your data</button>
+    </div>
+</div>
+<div class="sub_container" style="margin-top: 10px;">
+    <h1>My Activity</h1>
+    <div class="my_activity">
+        <div class="orders">
+            <div>
+                <p class="emoji">📦</p>
+                <p style="font-size: 1.5rem;"><span id="orders">{{reg_orders_count}}</span> registered orders</p>
+                <button class="btn" onclick="Show_Orders()">Order History</button>
+            </div>
+        </div>
+        <div class="favorites">
+            <p class="emoji">❤️</p>
+            <p style="font-size: 1.5rem;"><span id="favorite_pr">{{favorites_count}}</span> favorite products</p>
+            <button class="btn" onclick="Show_Favorites()">Favorite Products</button>
+
+        </div>
+        <div class="reviews">
+            <p class="emoji">⭐</p>
+            <p style="font-size: 1.5rem;"><span id="pr_reviews" >{{reviews_count}}</span> reviews added</p>
+            <button class="btn" onclick="Show_Reviews()">Look Comments</button>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let show = document.querySelector('.changeDataForm');
+    
+    let container = document.querySelector('.sub_container');
+    let reg_orders_display = document.querySelector('.reg_orders_display');
+
+    let upload_Image = document.querySelector('#upload_image');
+    let form = upload_Image.parentElement;
+    upload_Image.addEventListener('change', ()=>{
+        let button = document.createElement('button');
+        button.type = 'submit';
+        form.append(button);
+        button.click();
+    })
+    function Show_Reviews(){
+        show.style.display = 'block';
+        show.innerHTML = `
+            <div class="reg_orders_display" style="border-radius: 5px;">
+                <div class="header">
+                    <h1>Reviews</h1>
+                    <button type="button" onclick="Close()" class="close_btn">❌</button>
+                </div>
+                <hr>
+                <ul>
+                    {% for review in reviews %}
+                        <li class="review_item">
+                            <div class="order_details" style="border: 2px solid #fff; border-radius: 5px;">
+                                <div class="order_status" style="font-size: 1.4rem; float: left;">{{review.Product}}</div>
+                                <div>"{{review.Review}}"</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        `;
+        let review_item = document.querySelectorAll('.review_item').length;
+        if (review_item == 0) {
+            let elem = document.querySelector('.reg_orders_display ul');
+            elem.style.marginTop = '10px';
+            elem.textContent = "No favorites added yet";
+            elem.style.fontSize = '1.3rem';
+        }
+    }
+
+    function Show_Favorites(){
+        show.style.display = 'block'
+        show.innerHTML = `
+            <div class="reg_orders_display" style="border-radius: 5px;">
+                <div class="header">
+                    <h1>Favorite Products</h1>
+                    <button type="button" onclick="Close()" class="close_btn">❌</button>
+                </div>
+                <hr>
+                <ul>
+                    {% for product in favorites %}
+                        <li class="favorite_item">
+                            <div class="order_details">
+                                <div class="order_status" style="font-size: 1.4rem; float: left;">{{product.Product_name}}</div><span style="font-size: 1.6rem; margin-right: 100px;">❤️</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        `;
+        let favorite_item = document.querySelectorAll('.favorite_item').length;
+        if (favorite_item == 0) {
+            let elem = document.querySelector('.reg_orders_display ul');
+            elem.style.marginTop = '10px';
+            elem.textContent = "No favorites added yet";
+            elem.style.fontSize = '1.3rem';
+        }
+    }
+
+    function Show_Orders(){
+        show.style.display = 'block';
+        show.innerHTML = `
+            <div class="reg_orders_display" style="border-radius: 5px;">
+                <div class="header">
+                    <h1>Orders</h1>
+                    <button type="button" onclick="Close()" class="close_btn">❌</button>
+                </div>
+                <hr>
+                <ul>
+                    {% for product in reg_orders %}
+                        <li class="registered_item">
+                            <div class="order_details">
+                                <div class="order_status" style="font-size: 1.4rem;">
+                                    Status:
+                                    {% if product.status == "P" %}
+                                        Pending ⌛
+                                    {% elif product.status == "S" %}
+                                        Shipped 🚚
+                                    {% elif product.status == "D" %}
+                                        Delivered ✔️
+                                    {% endif %}
+                                </div>
+                                <div class="order_cost" style="font-size: 1.4rem; color: rgb(15, 213, 15);">Cost: \${{product.cost}}</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        `;
+        let favorite_item = document.querySelectorAll('.registered_item').length;
+        if (favorite_item == 0) {
+            let elem = document.querySelector('.reg_orders_display ul');
+            elem.style.marginTop = '10px';
+            elem.textContent = "You haven't made any orders";
+            elem.style.fontSize = '1.3rem';
+        }
+    }
+
+    function ChangeData() {
+        container.style.filter = 'blur(2px)';
+
+        show.style.display = 'block';
+        show.innerHTML = `
+        <div class="reg_orders_display" style="border-radius: 5px; transform: scale(1.4);">
+            <div>
+                <h1 style="float: left;">Manage Data</h1>
+                <button type="button" style="margin-left: 20px;" onclick="CloseForm()" class="close_btn">❌</button>                        
+            </div>
+            <button style="display: block;" onclick="ChangeUserName()">Change Username</button>
+            <button style="display: block;" onclick="ChangeEmail()">Change Email</button>
+            <button style="display: block;" onclick="ChangePass()">Change Password</button>
+        </div>
+            `;
+    }
+    
+    function showPass1(){
+        let pass1_field = document.getElementById('pass1');
+        if (pass1_field.type == 'password'){
+            pass1_field.type = 'text';
+        }
+        else{
+            pass1_field.type = 'password';
+        }
+    }
+
+    function showPass2() {
+            let pass1_field = document.getElementById('pass2');
+            if (pass1_field.type == 'password') {
+                pass1_field.type = 'text';
+            }
+            else {
+                pass1_field.type = 'password';
+            }
+        }
+    
+    function ChangePass(){
+        show.style.display = 'block';
+        show.innerHTML = `
+        <form class="form" method="post" style="border-radius: 5px;">
+        <input type="hidden" value="post_password" name="method">
+        <div class="form-header">
+            <h1>Manage Data</h1>
+            <button type="button" onclick="CloseForm()" class="close_btn">❌</button>
+        </div>
+        {% csrf_token %}
+        <label for="new_pass">New Password:</label>
+
+
+        <div class="input-container">
+            <input id="pass1" type="password" style="font-weight:bold;font-size: 1.6rem; width: 450px;" required name="pass1" placeholder="Enter your password" maxlength="30">
+            <span class="emoji-container">
+                <span onclick="showPass1()" id="emoji" style="color: black; font-size: 1.8rem;">&#x1F441;</span>
+            </span>
+        </div>
+        <label for="confirm">Confirm Password:</label>
+
+        
+        <div class="input-container">
+            <input type="password" id="pass2" name="pass2" maxlength="30" style="font-weight:bold;font-size: 1.6rem; width: 450px;" required placeholder="Confirm your password">
+            <span class="emoji-container">
+                <span onclick="showPass2()" id="emoji" style="color: black; font-size: 1.8rem;">&#x1F441;</span>
+            </span>
+        </div>
+        
+        <button>Change Password</button>
+    </form>
+            `;
+    }
+
+    function ChangeEmail(){
+        show.style.display = 'block';
+        show.innerHTML = `
+        <form class="form" method="post" style="border-radius: 5px;">
+        <input type="hidden" value="post_email" name="method">
+        <div class="form-header">
+            <h1>Manage Data</h1>
+            <button type="button" onclick="CloseForm()" class="close_btn">❌</button>
+        </div>
+        {% csrf_token %}
+        <label for="current_email">Current Email:</label>
+        <div class="input-container">
+            <input id="current_email" type="text" value="{{email}}" disabled style="color: #fff; font-weight:bold;font-size: 1.6rem;">
+        </div>
+        <label for="email">New Email:</label>
+        <div class="input-container">
+            <input type="email" id="email" name="email" minlength="2" style="font-weight:bold;font-size: 1.6rem;" required placeholder="Enter your email">
+        </div>
+        
+        <button>Change Email</button>
+    </form>
+            `;
+    }
+
+    function ChangeUserName(){
+
+        show.style.display = 'block';
+        show.innerHTML = `
+        <form class="form" method="post" style="border-radius: 5px;">
+
+        <input type="hidden" value="post_username" name="method">
+        <div class="form-header">
+            <h1>Manage Data</h1>
+            <button type="button" onclick="CloseForm()" class="close_btn">❌</button>
+        </div>
+        {% csrf_token %}
+        <label for="current_username">Current Username:</label>
+        <div class="input-container">
+            <input id="current_username" type="text" value="{{username}}" disabled style="color: #fff; font-weight:bold;font-size: 1.6rem;">
+        </div>
+        <label for="username">New Username:</label>
+        <div class="input-container">
+            <input type="text" id="username" name="username" minlength="2" style=" font-weight:bold;font-size: 1.6rem;" required placeholder="Enter your username">
+        </div>
+        
+        <button>Change Username</button>
+    </form>
+            `;
+    }
+
+    function CloseForm() {
+        show.style.display = 'none';
+        container.style.filter = 'none';
+    }
+
+    function Close(){
+        show.style.display='none';
+    }
+</script>
+{% endblock %}

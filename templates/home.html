@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% load static%}
+
+
+{% block styles%}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock %}
+
+{% block bodycontent %}
+{% for message in messages %}
+    <h2 class="success">{{message}}</h2>
+{% endfor%}
+<section class="header">
+    <h1>Electronify</h1>
+    <p>Your one-stop shop for all your electronic needs.</p>
+    <button><a href="{% url 'smartphones'%}" id="shop">Shop Now</a></button>
+</section>
+
+<div class="container">
+    
+    {% for phone in phones%}
+    <section class="item">
+
+        <p class="BS">Best Seller</p>
+        <img src="static/{{phone.Series}}.jpg" width="280" height="auto" onmouseover="hover(this)" onmouseout="unHover(this)">
+
+        <a href="#"><h3>{{phone.Series}}</h3></a>
+        <p>✔️{{phone.Screen}}</p>
+        <p>✔️{{phone.Battery}}</p>
+        <p>✔️{{phone.Processor}}</p>
+        <p>✔️{{phone.Camera}}</p>
+        {% if phone.Quantity > 0 %}
+        <p class="inStock">In Stock</p>
+        {% else %}
+        <p class="outOfStock">Out of stock</p>
+        {% endif %}
+        
+        <h3 class="cost">${{phone.Cost}}</h3>
+    </section>
+    {% endfor %}
+    
+</div>
+<script src="{% static 'home.js' %}"></script>
+{% endblock %}
